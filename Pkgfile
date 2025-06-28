@@ -7,6 +7,11 @@ vars:
   TOOLS_PREFIX: ghcr.io/siderolabs/
   TOOLS_REV: v1.10.0-4-g9d54ed4
 
+  open_cas_version1: v25.03
+  open_cas_version2: 25.03.0.0963.release
+  open_cas_sha256: e66c7e7d4bd1fd488431ab2f562bc4a7cfaaf386f8716b110d0841b2370020b4
+  open_cas_sha512: 3f359c08d424ca53da26a6ea564560530ece9fbe36912ac8bfa8804768de460844e058a10f6807f725bb7fc3209ab45718a3e54639661a843b50f255af891f6c
+
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
   cni_sha256: aa9a9401d27c1ad440627bbe7093d7e9ff47d325aac27b89a2cbdd56e25f3625
