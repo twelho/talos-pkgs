@@ -1,0 +1,23 @@
+From 6ac360fd507cfaeb3dcc49012b6fbbced3194f8e Mon Sep 17 00:00:00 2001
+From: Dennis Marttinen <twelho@welho.tech>
+Date: Thu, 26 Mar 2026 13:50:33 +0200
+Subject: [PATCH] md/bcache: force flushes when writing to backing device
+
+Writeback should use durable writes to the backing device before marking dirty buckets as clean, otherwise there's a window for data loss.
+---
+ drivers/md/bcache/writeback.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/bcache/writeback.c b/drivers/md/bcache/writeback.c
+index 8a2b38f2def9f9..067f603c03ce43 100644
+--- a/drivers/md/bcache/writeback.c
++++ b/drivers/md/bcache/writeback.c
+@@ -434,7 +434,7 @@ static CLOSURE_CALLBACK(write_dirty)
+ 	 */
+ 	if (KEY_DIRTY(&w->key)) {
+ 		dirty_init(w);
+-		io->bio.bi_opf = REQ_OP_WRITE;
++		io->bio.bi_opf = REQ_OP_WRITE | REQ_FUA;
+ 		io->bio.bi_iter.bi_sector = KEY_START(&w->key);
+ 		bio_set_dev(&io->bio, io->dc->bdev);
+ 		io->bio.bi_end_io	= dirty_endio;
